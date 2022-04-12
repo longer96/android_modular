@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 def rootAndroidId = rootProject.ext.androidId
 def appId = rootProject.ext.appId
 def support = rootProject.ext.dependencies
+def url = rootProject.ext.url
 
 android {
     compileSdkVersion rootAndroidId.compileSdkVersion
@@ -23,8 +24,12 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "url", "\"${url.debug}\"")
+        }
         release {
             minifyEnabled false
+            buildConfigField("String", "url", "\"${url.release}\"")
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
